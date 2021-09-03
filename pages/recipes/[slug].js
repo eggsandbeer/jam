@@ -14,7 +14,7 @@ export const getStaticPaths = async () => {
 
   return {
     paths: resp?.items.map((item) => ({ params: { slug: item?.fields?.slug } })),
-    fallback: false
+    fallback: true
   }
 }
 
@@ -33,6 +33,10 @@ export async function getStaticProps({ params }) {
 }
 
 export default function RecipeDetails({ recipe }) {
+  if (!recipe) {
+    return (<div>loading</div>)
+  }
+
   const { featuredImage, title, cookingTime, ingredients, method } = recipe?.fields
 
   return (
